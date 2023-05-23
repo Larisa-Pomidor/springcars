@@ -22,7 +22,7 @@ import java.util.Set;
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name="user_id")
     private Long id;
     @Column(name="email", unique = true)
     private String email;
@@ -38,7 +38,7 @@ public class User implements UserDetails {
     joinColumns = @JoinColumn(name="user_id"))
     private Set<Role> roles = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Product> products;
 
     private LocalDateTime created;

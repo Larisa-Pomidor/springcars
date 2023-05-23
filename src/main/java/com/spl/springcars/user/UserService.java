@@ -18,6 +18,10 @@ public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    /**
+    Creating of a new User. Method returns boolean value false if user with this email is already exists.
+    Otherwise, true will be returned.
+     */
     public boolean createUser(User user) {
         if (userRepository.findByEmail(user.getEmail()).isPresent()) return false;
            // throw new IllegalStateException("User with email " + user.getEmail() + " is already exist");
@@ -36,7 +40,10 @@ public class UserService implements UserDetailsService {
                 new UsernameNotFoundException(String.format("User with email %s not found", email)));
     }
 
-
+    /**
+    Method returns new User if principal is null (called by unregistered website visitor)
+    otherwise returns current website User by its name (email in our case).
+     */
 
     public User getUserByPrincipal(Principal principal) {
         User user;

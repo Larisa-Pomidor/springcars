@@ -57,5 +57,9 @@ public class ProductService {
     public List<Product> getUserProducts(String email) {
         return productRepository.getUserProducts(email);
     }
+
+    public void deleteProduct(Long id) {
+        productRepository.deleteById(id);
+    }
 }
 

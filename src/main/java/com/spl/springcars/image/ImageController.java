@@ -20,6 +20,11 @@ import java.io.InputStream;
 public class ImageController {
     private final ImageRepository imageRepository;
 
+    /**
+     Method returns image from db by its id.
+     Since all product images are stored in db method provide us an opportunity
+     to display pictures on website.
+     */
     @GetMapping("/images/{id}")
     private ResponseEntity<?> getImage(@PathVariable Long id) {
         Image image = imageRepository.findById(id).orElseThrow(() -> new IllegalStateException("Image is not found"));

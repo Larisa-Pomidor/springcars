@@ -25,7 +25,7 @@ public class Product {
     private long id;
     private String name;
     private LocalDateTime date;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(
             nullable = false,
             name = "user",

@@ -3,20 +3,21 @@ package com.spl.springcars.product;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.spl.springcars.image.Image;
+import com.spl.springcars.user.User;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.lang.reflect.Type;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @EqualsAndHashCode
-@NoArgsConstructor
-@AllArgsConstructor
 @ToString
 @Entity
-@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@RequiredArgsConstructor
 @Table(name = "product")
 public class Product {
     @Id
@@ -24,28 +25,35 @@ public class Product {
     private long id;
     private String name;
     private LocalDateTime date;
-    private long user;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(
+            nullable = false,
+            name = "user",
+            unique = true
+    )
+    private User user;
     private String description;
     private String color;
     private int price;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "`release`")
-    private LocalDateTime release;
+    private LocalDate release;
     private String model;
-    @OneToOne(mappedBy = "product")
+    @OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(
             nullable = false,
-            name = "image"
+            name = "image",
+            unique = true
     )
     private Image image;
 
-    public Product(String name, LocalDateTime date, long user,
-                   String description, Image image, String color, int price,
-                   String model, LocalDateTime release) {
+    public Product(String name, LocalDateTime date, User user,
+                   String description, String color, int price,
+                   String model, LocalDate release) {
         this.name = name;
         this.date = date;
         this.user = user;
         this.description = description;
-        this.image = image;
         this.color = color;
         this.price = price;
         this.model = model;

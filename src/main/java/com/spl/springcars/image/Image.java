@@ -13,7 +13,6 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 @Entity
-@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Table(name = "image")
 public class Image {
     @Id
@@ -26,7 +25,7 @@ public class Image {
     private String contentType;
     @Lob
     private byte[] bytes;
-    @OneToOne
+    @OneToOne(mappedBy = "image")
     private Product product;
 
     public Image(String fileName, Long size, String contentType, byte[] bytes) {

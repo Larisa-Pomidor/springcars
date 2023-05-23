@@ -1,6 +1,7 @@
 package com.spl.springcars.user;
 
 import com.spl.springcars.enums.Role;
+import com.spl.springcars.product.Product;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -9,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -35,6 +37,9 @@ public class User implements UserDetails {
     @CollectionTable(name="user_role",
     joinColumns = @JoinColumn(name="user_id"))
     private Set<Role> roles = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "user")
+    private List<Product> products;
 
     private LocalDateTime created;
 

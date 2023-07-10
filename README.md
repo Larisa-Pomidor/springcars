@@ -31,7 +31,7 @@ Views in template directory use FreeMarker Java library.
 - Java
 - Spring MVC
 - Apache FreeMarker 
-- HTML/CSS
+- HTML/CSS, Bootstrap, jQuery
 - MySQL
 - Maven
 
